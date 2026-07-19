@@ -116,6 +116,23 @@ app.get("/products", async (req: Request, res: Response) => {
     });
   }
 });
+
+
+app.get("/products/new-arrivals", async (req: Request, res: Response) => {
+  try {
+    const products = await productsCollection
+      .find({ isNew: true })
+      .limit(8)
+      .toArray();
+
+    res.send(products);
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Failed to fetch new arrivals",
+    });
+  }
+});
  
 
 
