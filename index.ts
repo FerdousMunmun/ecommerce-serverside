@@ -150,6 +150,21 @@ app.get("/products/new-arrivals", async (req: Request, res: Response) => {
   }
 });
 
+app.post("/products", async (req: Request, res: Response) => {
+  try {
+    const product = req.body;
+
+    const result = await productsCollection.insertOne(product);
+
+    res.send(result);
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Failed to add product",
+    });
+  }
+});
+
 
 
 
