@@ -14,9 +14,7 @@ import type {
   NextFunction,
 } from "express";
 
-interface AuthRequest extends Request {
-  user?: any;
-}
+
 
 interface AuthRequest extends Request {
   user?: any;
@@ -99,13 +97,25 @@ async function run() {
 
 
 
-    const childCareCentersCollection = db.collection("childcarecenters");
+    const productsCollection = db.collection("products");
 const bookingsCollection = db.collection("bookings");
 
 
+type Request = import("express").Request;
+type Response = import("express").Response;
 
+app.get("/products", async (req: Request, res: Response) => {
+  try {
+    const products = await productsCollection.find().toArray();
 
-
+    res.send(products);
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Failed to fetch products",
+    });
+  }
+});
  
 
 
