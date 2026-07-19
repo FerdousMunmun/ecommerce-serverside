@@ -133,7 +133,22 @@ app.get("/products/new-arrivals", async (req: Request, res: Response) => {
     });
   }
 });
- 
+ app.get("/products/:id", async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const product = await productsCollection.findOne({
+      _id: new ObjectId(id),
+    });
+
+    res.send(product);
+  } catch (error) {
+    res.status(500).send({
+      success: false,
+      message: "Failed to fetch product",
+    });
+  }
+});
 
 
 
