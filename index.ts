@@ -8,6 +8,8 @@ const dontenv = require("dotenv");
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const { createRemoteJWKSet, jwtVerify } = require("jose-cjs");
+
+import { GoogleGenAI } from "@google/genai";
 import type {
   Request,
   Response,
