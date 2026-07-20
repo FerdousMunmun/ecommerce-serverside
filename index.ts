@@ -179,7 +179,7 @@ switch (sort) {
 
 
 
-app.get("/products/:id", async (req: Request, res: Response) => {
+app.get("/products/:id", async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -244,7 +244,7 @@ app.get("/cart", async(req: Request, res: Response) => {
   }
 });
 
-app.get("/cart", async (req: Request, res: Response) => {
+app.get("/cart", async (req:Request, res: Response) => {
   try {
     const result = await cartCollection.find().toArray();
 
@@ -295,7 +295,7 @@ app.patch("/cart/:id", async (req: Request, res: Response) => {
   }
 });
 
-app.post("/orders", async (req: Request, res: Response) => {
+app.post("/orders", verifyToken, async (req: AuthRequest, res: Response) => {
   try {
     const order = req.body;
 
@@ -309,22 +309,22 @@ app.post("/orders", async (req: Request, res: Response) => {
     res.status(500).send({ message: "Failed to place order" });
   }
 });
-app.post("/orders", async(req: Request, res: Response)  => {
-  try {
-    const order = req.body;
+// app.post("/orders", async(req: Request, res: Response)  => {
+//   try {
+//     const order = req.body;
 
-    order.createdAt = new Date();
+//     order.createdAt = new Date();
 
-    const result = await ordersCollection.insertOne(order);
+//     const result = await ordersCollection.insertOne(order);
 
-    await cartCollection.deleteMany({});
+//     await cartCollection.deleteMany({});
 
-    res.send(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Failed to place order" });
-  }
-});
+//     res.send(result);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send({ message: "Failed to place order" });
+//   }
+// });
 app.post("/ai/generate-content", async (req: Request, res: Response) => {
   try {
     const { productName, category, keywords, tone, length } = req.body;
