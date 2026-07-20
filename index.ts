@@ -6,7 +6,6 @@ dns.setServers(['8.8.8.8', '8.8.4.4']);
 const express = require("express");
 const dontenv = require("dotenv");
 const cors = require("cors");
-const { GoogleGenAI } = require("@google/genai");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const { createRemoteJWKSet, jwtVerify } = require("jose-cjs");
 import type {
