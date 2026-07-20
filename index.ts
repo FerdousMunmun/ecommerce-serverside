@@ -295,7 +295,7 @@ app.patch("/cart/:id", async (req: Request, res: Response) => {
   }
 });
 
-app.post("/orders", verifyToken, async (req: AuthRequest, res: Response) => {
+app.post("/orders",  async (req:Request, res: Response) => {
   try {
     const order = req.body;
 
@@ -309,22 +309,7 @@ app.post("/orders", verifyToken, async (req: AuthRequest, res: Response) => {
     res.status(500).send({ message: "Failed to place order" });
   }
 });
-// app.post("/orders", async(req: Request, res: Response)  => {
-//   try {
-//     const order = req.body;
 
-//     order.createdAt = new Date();
-
-//     const result = await ordersCollection.insertOne(order);
-
-//     await cartCollection.deleteMany({});
-
-//     res.send(result);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send({ message: "Failed to place order" });
-//   }
-// });
 app.post("/ai/generate-content", async (req: Request, res: Response) => {
   try {
     const { productName, category, keywords, tone, length } = req.body;
